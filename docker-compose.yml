@@ -1,0 +1,18 @@
+services:
+  web:
+    container_name: innovative-site
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+    env_file: .env
+    restart: unless-stopped
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    # The existing Docker network your Caddy container is on.
+    # Find it with: docker network ls
+    external: true
+    name: n8nnet
